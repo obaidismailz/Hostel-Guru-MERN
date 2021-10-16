@@ -3,7 +3,8 @@ const express = require("express");
 const PORT = 3001 || process.env.PORT;
 
 const app = express();
-
+require("./dbcon");
+app.use(express.json());
 app.use("/api/auth", require("./routes/auth"));
 
 app.get("/", (req, res) => {
