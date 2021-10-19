@@ -111,7 +111,7 @@ router.post(
   }
 );
 
-// for login
+// for student login
 
 router.post(
   "/login",
@@ -129,6 +129,52 @@ router.post(
 
     try {
       let user = await Student.findOne({ email });
+
+      console.log(user);
+      if (!user) {
+        res.status(400).json({ error: "Invalid Credentials 1" });
+      }
+
+      const passwordCompare = await bcrypt.compare(password, user.password);
+
+      console.log(passwordCompare);
+      console.log("after password compare");
+      if (!passwordCompare) {
+        return res.status(400).json({ error: "Invalid Credentials 2" });
+      }
+
+      const data = {
+        user: {
+          id: user._id,
+        },
+      };
+      const authToken = await jwt.sign(data, JWT_SECRET);
+      let success = true;
+      res.json({ success, authToken });
+    } catch (error) {
+      console.log("Invalid Credentials");
+    }
+  }
+);
+
+// for hostel Owner login
+
+router.post(
+  "/hostelownerlogin",
+  [
+    body("email", "enter a valid email").isEmail(),
+    body("password", "password cannot be blanked").exists(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email, password } = req.body;
+
+    try {
+      let user = await hostelOwner.findOne({ email });
 
       console.log(user);
       if (!user) {

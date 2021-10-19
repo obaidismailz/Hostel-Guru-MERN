@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const hostelSchema = new mongoose.Schema({
+  hostelOwner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "HostelOwner",
+  },
   hostelName: {
     type: String,
     required: true,
