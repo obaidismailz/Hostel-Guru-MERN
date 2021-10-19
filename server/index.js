@@ -6,6 +6,7 @@ const app = express();
 require("./dbcon");
 app.use(express.json());
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/hostel", require("./routes/hostels"));
 
 app.get("/", (req, res) => {
   res.send("Hello world");
