@@ -2,6 +2,7 @@ const express = require("express");
 const hostel = require("../models/Hostel");
 const router = express.Router();
 const fetchUser = require("../middleware/fetchuser");
+const { hashSync } = require("bcryptjs");
 
 router.post("/addhostel", fetchUser, async (req, res) => {
   const {
@@ -32,7 +33,7 @@ router.get("/fetchhostels", async (req, res) => {
   res.json(hostels);
 });
 
-router.put("/updatehostel/:id", async (req, res) => {
+router.put("/updatehostel/:id", fetchUser, async (req, res) => {
   const hostelId = req.params.id;
 
   const {
@@ -59,6 +60,45 @@ router.put("/updatehostel/:id", async (req, res) => {
   if (hostelNoOfRooms) {
     newHostel.hostelNoOfRooms = hostelNoOfRooms;
   }
+
+  let fetchHostel = await hostel.findById(hostelId);
+
+  console.log(fetchHostel);
+
+  if (!fetchHostel) {
+    res.send("Hostel not found");
+  }
+
+  console.log(req.user);
+  if (fetchHostel.hostelOwner.toString() !== req.user.id) {
+    res.send("you are not  allowed to update it");
+  }
+
+  fetchHostel = await hostel.findByIdAndUpdate(
+    hostelId,
+    { $set: newHostel },
+    { new: true }
+  );
+
+  res.send(fetchHostel);
+});
+
+router.delete("/deletehostel/:id", fetchUser, async (req, res) => {
+  const hostelId = req.params.id;
+
+  let delHostel = await hostel.findById(hostelId);
+
+  if (!delHostel) {
+    res.send("hostel not found");
+  }
+
+  if (delHostel.hostelOwner.toString() !== req.user.id) {
+    res.send("You are not allowed to  delete this hostel");
+  }
+
+  let del = await hostel.findByIdAndDelete(hostelId);
+
+  res.send(del);
 });
 
 module.exports = router;
