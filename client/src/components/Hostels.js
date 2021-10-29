@@ -1,8 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-
+import HostelItem from "./HostelItem";
 import Container from "@mui/material/Container";
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -17,12 +16,7 @@ function GridItem({ classes }) {
     // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
     // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
     <Grid item xs={12} sm={6} md={3}>
-      <Paper className={classes.paper}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga qui
-        sapiente reprehenderit nisi corporis eum placeat saepe consequatur
-        nulla, illum iusto repudiandae excepturi, asperiores harum quisquam
-        adipisci provident sed rem eos doloribus veritatis accusantium.
-      </Paper>
+      <HostelItem className={classes.paper} />
     </Grid>
   );
 }
