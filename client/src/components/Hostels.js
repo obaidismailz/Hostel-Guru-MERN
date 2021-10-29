@@ -1,46 +1,47 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
+import Container from "@mui/material/Container";
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    padding: theme.spacing(3),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
 }));
-
-function FormRow() {
+function GridItem({ classes }) {
   return (
-    <React.Fragment>
-      <Grid item xs={4}>
-        <Item>Item</Item>
-      </Grid>
-      <Grid item xs={4}>
-        <Item>Item</Item>
-      </Grid>
-      <Grid item xs={4}>
-        <Item>Item</Item>
-      </Grid>
-    </React.Fragment>
+    // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
+    // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
+    // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
+    <Grid item xs={12} sm={6} md={3}>
+      <Paper className={classes.paper}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga qui
+        sapiente reprehenderit nisi corporis eum placeat saepe consequatur
+        nulla, illum iusto repudiandae excepturi, asperiores harum quisquam
+        adipisci provident sed rem eos doloribus veritatis accusantium.
+      </Paper>
+    </Grid>
   );
 }
-
 export default function Hostels() {
+  const classes = useStyles();
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={1} gridAutoRows>
-        <Grid container item spacing={2}>
-          <FormRow />
+    <div>
+      {/* <h3>Ex 4: Responsive Material UI Grid </h3> */}
+      {/* // I am a container Grid with 1 (8px) spacing */}
+
+      <h1 style={{ textAlign: "center" }}>Hostels</h1>
+      <Container maxWidth="lg">
+        <Grid container spacing={3}>
+          <GridItem classes={classes} />
+          <GridItem classes={classes} />
+          <GridItem classes={classes} />
+          <GridItem classes={classes} />
         </Grid>
-        <Grid container item spacing={3}>
-          <FormRow />
-        </Grid>
-        <Grid container item spacing={3}>
-          <FormRow />
-        </Grid>
-      </Grid>
-    </Box>
+      </Container>
+    </div>
   );
 }
