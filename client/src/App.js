@@ -1,11 +1,15 @@
 import "./App.css";
 import Appbar from "./components/Appbar";
 import Hostels from "./components/Hostels";
+import HostelState from "./context/HostelState";
 function App() {
   return (
     <>
-      <Appbar />
-      <Hostels />
+      <HostelState>
+        <Appbar />
+
+        <Hostels />
+      </HostelState>
     </>
   );
 }

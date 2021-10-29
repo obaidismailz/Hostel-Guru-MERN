@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import HostelItem from "./HostelItem";
 import Container from "@mui/material/Container";
+
+import HostelContext from "../context/HostelContext";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(3),
@@ -10,18 +13,30 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-function GridItem({ classes }) {
+function GridItem(props) {
+  console.log(props);
   return (
     // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
     // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
     // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
     <Grid item xs={12} sm={6} md={3}>
-      <HostelItem className={classes.paper} />
+      <HostelItem data={props.hostel} />
     </Grid>
   );
 }
 export default function Hostels() {
   const classes = useStyles();
+
+  const context = useContext(HostelContext);
+
+  const { hostels, getHostels } = context;
+
+  useEffect(() => {
+    getHostels();
+    console.log(hostels);
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div>
       {/* <h3>Ex 4: Responsive Material UI Grid </h3> */}
@@ -30,11 +45,17 @@ export default function Hostels() {
       <h1 style={{ textAlign: "center" }}>Hostels</h1>
       <Container maxWidth="lg">
         <Grid container spacing={3}>
-          <GridItem classes={classes} />
-          <GridItem classes={classes} />
-          <GridItem classes={classes} />
-          <GridItem classes={classes} />
+          {hostels.map((hostelItem) => {
+            return (
+              <GridItem
+                classes={classes}
+                key={hostelItem._id}
+                hostel={hostelItem}
+              />
+            );
+          })}
         </Grid>
+        ;
       </Container>
     </div>
   );
