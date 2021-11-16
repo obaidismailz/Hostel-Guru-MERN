@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 export default function HostelItem(props) {
-  console.log(props);
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -17,16 +16,15 @@ export default function HostelItem(props) {
           {props.data.hostelName}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
+          {props.data.hostelCity}
         </Typography>
+        <Typography variant="body2">{props.data.hostelAddress}</Typography>
         <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          No. of Rooms : {props.data.hostelNoOfRooms}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small">View Details</Button>
       </CardActions>
     </Card>
   );

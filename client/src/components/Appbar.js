@@ -17,7 +17,19 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import SvgIcon from "@mui/material/SvgIcon";
+import LoginIcon from "@mui/icons-material/Login";
+import { Link } from "react-router-dom";
+// import HomeIcon from "@mui/icons-material/Home";
 const drawerWidth = 240;
+
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -122,12 +134,24 @@ export default function Appbar() {
         <Divider />
         <List>
           {["login", "Signup", "Home", "About"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              to={`/${text}`}
+            >
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index === 0 ? (
+                    <LoginIcon color="success" />
+                  ) : index === 1 ? (
+                    <LoginIcon color="success" />
+                  ) : (
+                    <HomeIcon />
+                  )}
+                  {/* {index === 1 ? <LoginIcon color="success" /> : <MailIcon />} */}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />

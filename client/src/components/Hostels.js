@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function GridItem(props) {
-  console.log(props);
   return (
     // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
     // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
@@ -33,7 +32,7 @@ export default function Hostels() {
 
   useEffect(() => {
     getHostels();
-    console.log(hostels);
+    // console.log(hostels);
     // eslint-disable-next-line
   }, []);
 
