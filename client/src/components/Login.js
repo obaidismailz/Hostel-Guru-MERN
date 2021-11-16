@@ -123,7 +123,7 @@ export default function Signup() {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Create a New Account</h1>
+      <h1 style={{ textAlign: "center" }}>Login to your Account</h1>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
@@ -223,18 +223,9 @@ export default function Signup() {
           noValidate
           autoComplete="off"
         />
-
         <TextField
           id="outlined-basic"
-          style={{ width: "26rem", margin: "1rem", marginTop: "-5rem" }}
-          label="Name"
-          value={values.name}
-          onChange={handleChange("name")}
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-basic"
-          style={{ width: "26rem" }}
+          style={{ width: "26rem", marginTop: "-5rem" }}
           label="email"
           value={values.email}
           onChange={handleChange("email")}
@@ -266,36 +257,11 @@ export default function Signup() {
           />
         </FormControl>
 
-        <FormControl sx={{ m: 0.5, width: "26rem" }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Confirm Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={values.showPassword ? "text" : "password"}
-            value={values.cpassword}
-            onChange={handleChange("cpassword")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-
         <Button
           sx={{ m: 2, width: "26rem", padding: "0.6rem" }}
           variant="outlined"
         >
-          Sign UP
+          Login
         </Button>
       </Container>
     </>
