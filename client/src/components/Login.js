@@ -29,6 +29,10 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+
 import Button from "@mui/material/Button";
 // import HomeIcon from "@mui/icons-material/Home";
 const drawerWidth = 240;
@@ -255,6 +259,21 @@ export default function Signup() {
             }
             label="Password"
           />
+        </FormControl>
+
+        <FormControl sx={{ m: 0.5 }} component="fieldset">
+          <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
+            <FormControlLabel
+              value="student"
+              control={<Radio />}
+              label="Student"
+            />
+            <FormControlLabel
+              value="male"
+              control={<Radio />}
+              label="Hostel Owner"
+            />
+          </RadioGroup>
         </FormControl>
 
         <Button
