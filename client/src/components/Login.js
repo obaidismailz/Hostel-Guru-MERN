@@ -90,7 +90,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-start",
 }));
 
-export default function Signup() {
+export default function Login() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -107,6 +107,7 @@ export default function Signup() {
     name: "",
     email: "",
     cpassword: "",
+    radioValue: "",
     showPassword: false,
   });
 
@@ -267,17 +268,19 @@ export default function Signup() {
               value="student"
               control={<Radio />}
               label="Student"
+              onChange={handleChange("radioValue")}
             />
             <FormControlLabel
-              value="male"
+              value="Hostel Owner"
               control={<Radio />}
               label="Hostel Owner"
+              onChange={handleChange("radioValue")}
             />
           </RadioGroup>
         </FormControl>
 
         <Button
-          sx={{ m: 2, width: "26rem", padding: "0.6rem" }}
+          sx={{ m: 2, marginBottom: "5rem", width: "26rem", padding: "0.6rem" }}
           variant="outlined"
         >
           Login

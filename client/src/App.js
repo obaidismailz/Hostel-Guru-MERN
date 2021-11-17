@@ -5,6 +5,9 @@ import HostelState from "./context/HostelState";
 import { Route } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+
+import Footer from "./components/Footer";
+
 function App() {
   return (
     <>
@@ -22,6 +25,8 @@ function App() {
         <Route exact path="/login">
           <Login />
         </Route>
+
+        <Footer />
       </HostelState>
     </>
   );

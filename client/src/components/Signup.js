@@ -107,6 +107,7 @@ export default function Signup() {
     name: "",
     email: "",
     cpassword: "",
+    radioValue: "",
     showPassword: false,
   });
 
@@ -297,19 +298,21 @@ export default function Signup() {
         <FormControl sx={{ m: 0.5 }} component="fieldset">
           <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
             <FormControlLabel
-              value="student"
+              value="Student"
               control={<Radio />}
+              onChange={handleChange("radioValue")}
               label="Student"
             />
             <FormControlLabel
-              value="male"
+              value="Hostel Owner"
               control={<Radio />}
+              onChange={handleChange("radioValue")}
               label="Hostel Owner"
             />
           </RadioGroup>
         </FormControl>
         <Button
-          sx={{ m: 2, width: "26rem", padding: "0.6rem" }}
+          sx={{ m: 3, width: "26rem", padding: "0.6rem" }}
           variant="outlined"
         >
           Sign UP
