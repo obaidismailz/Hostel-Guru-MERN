@@ -27,6 +27,7 @@ router.post(
     try {
       let newUser = await Student.findOne({ email: req.body.email });
 
+      console.log(newUser);
       if (newUser) {
         res.send("this user  is  already exists");
       } else {

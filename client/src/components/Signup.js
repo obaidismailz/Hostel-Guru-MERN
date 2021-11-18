@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useContext } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -32,6 +33,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import AuthContext from "../context/AuthContext";
 
 import Button from "@mui/material/Button";
 // import HomeIcon from "@mui/icons-material/Home";
@@ -93,11 +95,24 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function Signup() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const context = useContext(AuthContext);
 
+  console.log(context);
+
+  const { SendStudentsToDb } = context;
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
+  const postData = () => {
+    console.log("You pressed the sign up button");
+
+    if (values.password === values.cpassword) {
+      SendStudentsToDb(values.name, values.email, values.password);
+    } else {
+      console.log("password and confirm password are  not same");
+    }
+  };
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -314,6 +329,7 @@ export default function Signup() {
         <Button
           sx={{ m: 3, width: "26rem", padding: "0.6rem" }}
           variant="outlined"
+          onClick={() => postData()}
         >
           Sign UP
         </Button>
