@@ -34,10 +34,12 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import AuthContext from "../context/AuthContext";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Button from "@mui/material/Button";
 // import HomeIcon from "@mui/icons-material/Home";
 const drawerWidth = 240;
+toast.configure();
 
 function HomeIcon(props) {
   return (
@@ -97,8 +99,6 @@ export default function Signup() {
   const [open, setOpen] = React.useState(false);
   const context = useContext(AuthContext);
 
-  console.log(context);
-
   const { SendStudentsToDb } = context;
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -107,10 +107,39 @@ export default function Signup() {
   const postData = () => {
     console.log("You pressed the sign up button");
 
-    if (values.password === values.cpassword) {
-      SendStudentsToDb(values.name, values.email, values.password);
+    if (values.name && values.password && values.email && values.radioValue) {
+      if (values.password === values.cpassword) {
+        SendStudentsToDb(values.name, values.email, values.password);
+
+        toast.success("Success! Your Account has been created Successfully.", {
+          autoClose: 20000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+
+        setValues({
+          password: "",
+          name: "",
+          email: "",
+          cpassword: "",
+          radioValue: "",
+          showPassword: false,
+        });
+      } else {
+        console.log("password and confirm password are  not same");
+
+        toast.warning(
+          "Sorry! Your Password and confirm password are not same",
+          {
+            autoClose: 20000,
+            position: toast.POSITION.TOP_CENTER,
+          }
+        );
+      }
     } else {
-      console.log("password and confirm password are  not same");
+      toast.warning("Warning! No fields can be empty.", {
+        autoClose: 20000,
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
   const handleDrawerClose = () => {

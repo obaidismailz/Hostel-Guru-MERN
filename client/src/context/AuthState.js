@@ -23,17 +23,44 @@ const AuthState = (props) => {
 
   const SendStudentsToDb = async (name, email, password) => {
     console.log(name, email, password);
+
+    const obj = {
+      name: name,
+      email: email,
+      password: password,
+    };
     try {
       const response = await fetch(`${host}/api/auth/createstudent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: {
-          name: name,
-          email: email,
-          password: password,
+        body: JSON.stringify(obj),
+      });
+      const json = await response.json(); // parses JSON response into native JavaScript objects
+
+      console.log(json);
+      setStudents(json);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const SendHostelOwnersToDb = async (name, email, password) => {
+    console.log(name, email, password);
+
+    const obj = {
+      name: name,
+      email: email,
+      password: password,
+    };
+    try {
+      const response = await fetch(`${host}/api/auth/createstudent`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify(obj),
       });
       const json = await response.json(); // parses JSON response into native JavaScript objects
 

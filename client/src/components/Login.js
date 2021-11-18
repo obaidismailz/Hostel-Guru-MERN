@@ -33,10 +33,12 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Button from "@mui/material/Button";
 // import HomeIcon from "@mui/icons-material/Home";
 const drawerWidth = 240;
-
+toast.configure();
 function HomeIcon(props) {
   return (
     <SvgIcon {...props}>
@@ -106,10 +108,23 @@ export default function Login() {
     password: "",
     name: "",
     email: "",
-    cpassword: "",
+
     radioValue: "",
     showPassword: false,
   });
+
+  const postData = () => {
+    // This function is used to send data to database and verify credentials
+    console.log("You pressed the sign up button");
+
+    if (values.name && values.password && values.email && values.radioValue) {
+    } else {
+      toast.warning("Warning! No fields can be empty.", {
+        autoClose: 20000,
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  };
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -282,6 +297,7 @@ export default function Login() {
         <Button
           sx={{ m: 2, marginBottom: "5rem", width: "26rem", padding: "0.6rem" }}
           variant="outlined"
+          onClick={() => postData()}
         >
           Login
         </Button>
