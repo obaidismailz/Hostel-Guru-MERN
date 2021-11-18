@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useContext } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -28,7 +29,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
+import { useHistory } from "react-router-dom";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -36,6 +37,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "@mui/material/Button";
+
+import AuthContext from "../context/AuthContext";
+
 // import HomeIcon from "@mui/icons-material/Home";
 const drawerWidth = 240;
 toast.configure();
@@ -96,6 +100,11 @@ export default function Login() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const history = useHistory();
+  const context = useContext(AuthContext);
+
+  const { studentLogin } = context;
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -117,7 +126,9 @@ export default function Login() {
     // This function is used to send data to database and verify credentials
     console.log("You pressed the sign up button");
 
-    if (values.name && values.password && values.email && values.radioValue) {
+    if (values.password && values.email && values.radioValue) {
+      studentLogin(values.email, values.password);
+      history.push("/studentDashboard");
     } else {
       toast.warning("Warning! No fields can be empty.", {
         autoClose: 20000,

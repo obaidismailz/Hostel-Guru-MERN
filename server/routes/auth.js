@@ -78,9 +78,11 @@ router.post(
 
     try {
       let newUser = await hostelOwner.findOne({ email: req.body.email });
+      let success;
 
       if (newUser) {
-        res.send("this user  is  already exists");
+        success = false;
+        res.json({ success });
       } else {
         newUser = await hostelOwner.create({
           name: req.body.name,
@@ -94,8 +96,6 @@ router.post(
         };
         const authToken = await jwt.sign(data, JWT_SECRET);
         console.log(authToken);
-
-        let success;
 
         if (!newUser) {
           success = false;
@@ -115,7 +115,7 @@ router.post(
 // for student login
 
 router.post(
-  "/login",
+  "/studentlogin",
   [
     body("email", "enter a valid email").isEmail(),
     body("password", "password cannot be blanked").exists(),

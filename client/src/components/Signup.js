@@ -99,17 +99,20 @@ export default function Signup() {
   const [open, setOpen] = React.useState(false);
   const context = useContext(AuthContext);
 
-  const { SendStudentsToDb } = context;
+  const { SendStudentsToDb, SendHostelOwnersToDb, students } = context;
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const postData = () => {
-    console.log("You pressed the sign up button");
-
+    console.log(students);
     if (values.name && values.password && values.email && values.radioValue) {
       if (values.password === values.cpassword) {
-        SendStudentsToDb(values.name, values.email, values.password);
+        if (values.radioValue === "Student") {
+          SendStudentsToDb(values.name, values.email, values.password);
+        } else {
+          SendHostelOwnersToDb(values.name, values.email, values.password);
+        }
 
         toast.success("Success! Your Account has been created Successfully.", {
           autoClose: 20000,

@@ -8,6 +8,7 @@ const AuthState = (props) => {
 
   const AuthInitialState = [];
   const [students, setStudents] = useState(AuthInitialState);
+  const [hostelOwners, setHostelOwners] = useState(AuthInitialState);
 
   const fetchStudents = async () => {
     const response = await fetch(`${host}/api/auth/fetchhostels`, {
@@ -55,7 +56,7 @@ const AuthState = (props) => {
       password: password,
     };
     try {
-      const response = await fetch(`${host}/api/auth/createstudent`, {
+      const response = await fetch(`${host}/api/auth/createhostelowner`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,14 +66,37 @@ const AuthState = (props) => {
       const json = await response.json(); // parses JSON response into native JavaScript objects
 
       console.log(json);
-      setStudents(json);
+      setHostelOwners(json);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const studentLogin = async (email, password) => {
+    const response = await fetch(`${host}/api/auth/studentlogin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const res = await response.json();
+    console.log(res);
+    localStorage.setItem("auth-token", res.authToken);
+  };
+
   return (
-    <AuthContext.Provider value={{ students, fetchStudents, SendStudentsToDb }}>
+    <AuthContext.Provider
+      value={{
+        students,
+        fetchStudents,
+        SendStudentsToDb,
+        SendHostelOwnersToDb,
+        studentLogin,
+        hostelOwners,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

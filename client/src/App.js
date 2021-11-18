@@ -6,7 +6,7 @@ import AuthState from "./context/AuthState";
 import { Route } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-
+import StudentDashboard from "./components/StudentDashboard";
 import Footer from "./components/Footer";
 
 function App() {
@@ -26,6 +26,9 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/StudentDashboard">
+            <StudentDashboard />
           </Route>
 
           <Footer />
