@@ -8,7 +8,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import StudentDashboard from "./components/StudentDashboard";
 import Footer from "./components/Footer";
-
+import Logout from "./components/Logout";
 function App() {
   return (
     <>
@@ -26,6 +26,9 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/logout">
+            <Logout />
           </Route>
           <Route exact path="/StudentDashboard">
             <StudentDashboard />

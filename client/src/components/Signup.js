@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -99,34 +99,73 @@ export default function Signup() {
   const [open, setOpen] = React.useState(false);
   const context = useContext(AuthContext);
 
-  const { SendStudentsToDb, SendHostelOwnersToDb, students } = context;
+  const { SendStudentsToDb, SendHostelOwnersToDb, students, fetchStudents } =
+    context;
+  useEffect(() => {
+    fetchStudents();
+    // eslint-disable-next-line
+  }, []);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const postData = () => {
-    console.log(students);
+    let isUserNotExist = true;
+    students.user.forEach((item) => {
+      if (values.email === item.email) {
+        isUserNotExist = false;
+      }
+    });
+
     if (values.name && values.password && values.email && values.radioValue) {
       if (values.password === values.cpassword) {
         if (values.radioValue === "Student") {
-          SendStudentsToDb(values.name, values.email, values.password);
+          if (isUserNotExist) {
+            SendStudentsToDb(values.name, values.email, values.password);
+
+            setValues({
+              password: "",
+              name: "",
+              email: "",
+              cpassword: "",
+              radioValue: "",
+              showPassword: false,
+            });
+
+            toast.success(
+              "Success! Your Account has been created Successfully.",
+              {
+                autoClose: 20000,
+                position: toast.POSITION.TOP_CENTER,
+              }
+            );
+          } else {
+            toast.error("Error! Email already exist.", {
+              autoClose: 20000,
+              position: toast.POSITION.TOP_CENTER,
+            });
+          }
         } else {
           SendHostelOwnersToDb(values.name, values.email, values.password);
+
+          setValues({
+            password: "",
+            name: "",
+            email: "",
+            cpassword: "",
+            radioValue: "",
+            showPassword: false,
+          });
+
+          toast.success(
+            "Success! Your Account has been created Successfully.",
+            {
+              autoClose: 20000,
+              position: toast.POSITION.TOP_CENTER,
+            }
+          );
         }
-
-        toast.success("Success! Your Account has been created Successfully.", {
-          autoClose: 20000,
-          position: toast.POSITION.TOP_CENTER,
-        });
-
-        setValues({
-          password: "",
-          name: "",
-          email: "",
-          cpassword: "",
-          radioValue: "",
-          showPassword: false,
-        });
       } else {
         console.log("password and confirm password are  not same");
 

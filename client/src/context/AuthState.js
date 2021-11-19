@@ -1,17 +1,18 @@
 import AuthContext from "./AuthContext";
 
 import React from "react";
-
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 const AuthState = (props) => {
   const host = "http://localhost:3001";
+  const history = useHistory();
 
   const AuthInitialState = [];
   const [students, setStudents] = useState(AuthInitialState);
   const [hostelOwners, setHostelOwners] = useState(AuthInitialState);
 
   const fetchStudents = async () => {
-    const response = await fetch(`${host}/api/auth/fetchhostels`, {
+    const response = await fetch(`${host}/api/auth/fetchallstudents`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -82,8 +83,36 @@ const AuthState = (props) => {
     });
 
     const res = await response.json();
+    // console.log("res");
+    console.log(res.error);
+    if (res.success) {
+      localStorage.setItem("auth-token", res.authToken);
+
+      history.push("/studentDashboard");
+    }
+    if (res.error) {
+      console.log("iscredentials correct");
+
+      history.push("/login");
+    }
+  };
+  const hostelOwnerLogin = async (email, password) => {
+    const response = await fetch(`${host}/api/auth/hostelownerlogin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const res = await response.json();
     console.log(res);
-    localStorage.setItem("auth-token", res.authToken);
+
+    if (res.success) {
+      localStorage.setItem("auth-token", res.authToken);
+
+      history.push("/studentDashboard");
+    }
   };
 
   return (
@@ -95,6 +124,7 @@ const AuthState = (props) => {
         SendHostelOwnersToDb,
         studentLogin,
         hostelOwners,
+        hostelOwnerLogin,
       }}
     >
       {props.children}

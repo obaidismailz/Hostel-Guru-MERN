@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -100,10 +100,21 @@ export default function Login() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  useEffect(() => {
+    fetchStudents();
+
+    // eslint-disable-next-line
+  }, []);
+
   const history = useHistory();
   const context = useContext(AuthContext);
 
-  const { studentLogin } = context;
+  const {
+    studentLogin,
+    hostelOwnerLogin,
+    fetchStudents,
+    isCredentialsCorrect,
+  } = context;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -124,11 +135,14 @@ export default function Login() {
 
   const postData = () => {
     // This function is used to send data to database and verify credentials
-    console.log("You pressed the sign up button");
 
     if (values.password && values.email && values.radioValue) {
-      studentLogin(values.email, values.password);
-      history.push("/studentDashboard");
+      if (values.radioValue === "student") {
+        studentLogin(values.email, values.password);
+      } else {
+        hostelOwnerLogin(values.email, values.password);
+        history.push("/studentDashboard");
+      }
     } else {
       toast.warning("Warning! No fields can be empty.", {
         autoClose: 20000,

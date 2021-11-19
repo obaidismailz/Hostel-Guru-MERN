@@ -216,4 +216,13 @@ router.get("/getuser", fetchuser, async (req, res) => {
   }
 });
 
+router.get("/fetchallstudents", async (req, res) => {
+  try {
+    const user = await Student.find();
+    res.json({ user });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;

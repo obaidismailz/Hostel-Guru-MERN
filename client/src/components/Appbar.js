@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -80,6 +81,10 @@ export default function Appbar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  useEffect(() => {
+    document.title = "Login";
+  }, []);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -132,13 +137,19 @@ export default function Appbar() {
           </IconButton>
         </DrawerHeader>
         <Divider />
+
         <List>
-          {["login", "Signup", "Home", "About"].map((text, index) => (
+          {[
+            `${localStorage.getItem("auth-token") ? "logout" : "login"}`,
+            `${localStorage.getItem("auth-token") ? "Dashboard" : "Signup"}`,
+            "Home",
+            "About",
+          ].map((text, index) => (
             <Link
               style={{ textDecoration: "none", color: "black" }}
               to={`/${text}`}
             >
-              <ListItem button key={text}>
+              <ListItem button key={index}>
                 <ListItemIcon>
                   {index === 0 ? (
                     <LoginIcon color="success" />
