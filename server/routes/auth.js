@@ -206,11 +206,20 @@ router.post(
 
 // get logged in user details
 
-router.get("/getuser", fetchuser, async (req, res) => {
+router.get("/getstudent", fetchuser, async (req, res) => {
   try {
     userId = req.user.id;
     const user = await Student.findById(userId).select("-password");
     res.send(user);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/gethostelowner", fetchuser, async (req, res) => {
+  try {
+    userId = req.user.id;
+    const user = await hostelOwner.findById(userId).select("-password");
+    res.json(user);
   } catch (error) {
     console.log(error);
   }

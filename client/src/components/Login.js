@@ -29,7 +29,6 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useHistory } from "react-router-dom";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -37,7 +36,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "@mui/material/Button";
-import Loading from "./Loading";
+// import Loading from "./Loading";
 import AuthContext from "../context/AuthContext";
 
 // import HomeIcon from "@mui/icons-material/Home";
@@ -106,7 +105,6 @@ export default function Login() {
     // eslint-disable-next-line
   }, []);
 
-  const history = useHistory();
   const context = useContext(AuthContext);
 
   const { studentLogin, hostelOwnerLogin, fetchStudents } = context;
@@ -136,7 +134,6 @@ export default function Login() {
         studentLogin(values.email, values.password);
       } else {
         hostelOwnerLogin(values.email, values.password);
-        history.push("/studentDashboard");
       }
     } else {
       toast.warning("Warning! No fields can be empty.", {

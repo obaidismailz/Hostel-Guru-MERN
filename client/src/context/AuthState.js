@@ -11,6 +11,9 @@ const AuthState = (props) => {
   const [students, setStudents] = useState(AuthInitialState);
   const [hostelOwners, setHostelOwners] = useState(AuthInitialState);
 
+  const [loggedinuser, setloggedinuser] = useState({});
+  let user = {};
+
   const fetchStudents = async () => {
     const response = await fetch(`${host}/api/auth/fetchallstudents`, {
       method: "GET",
@@ -111,8 +114,24 @@ const AuthState = (props) => {
     if (res.success) {
       localStorage.setItem("auth-token", res.authToken);
 
-      history.push("/studentDashboard");
+      history.push("/HostelOwnerDashboard");
     }
+  };
+
+  const hostelownerlogindetails = async () => {
+    const resp = await fetch(`${host}/api/auth/gethostelowner`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("auth-token"),
+      },
+    });
+
+    const result = await resp.json();
+
+    user = result;
+
+    setloggedinuser(user);
   };
 
   return (
@@ -125,6 +144,10 @@ const AuthState = (props) => {
         studentLogin,
         hostelOwners,
         hostelOwnerLogin,
+        hostelownerlogindetails,
+        loggedinuser,
+
+        user,
       }}
     >
       {props.children}
