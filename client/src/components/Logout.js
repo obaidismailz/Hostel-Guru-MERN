@@ -7,6 +7,7 @@ const Logout = () => {
 
   useEffect(() => {
     localStorage.removeItem("auth-token");
+    localStorage.removeItem("category");
 
     history.push("/login");
     // eslint-disable-next-line

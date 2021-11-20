@@ -90,6 +90,7 @@ const AuthState = (props) => {
     console.log(res.error);
     if (res.success) {
       localStorage.setItem("auth-token", res.authToken);
+      localStorage.setItem("category", "Student");
 
       history.push("/studentDashboard");
     }
@@ -113,6 +114,7 @@ const AuthState = (props) => {
 
     if (res.success) {
       localStorage.setItem("auth-token", res.authToken);
+      localStorage.setItem("category", "Hostel Owner");
 
       history.push("/HostelOwnerDashboard");
     }

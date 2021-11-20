@@ -197,7 +197,15 @@ export default function Appbar() {
           ].map((text, index) => (
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/${text === "Dashboard" ? "" : text}`}
+              to={`/${
+                text === "Dashboard"
+                  ? `${
+                      localStorage.getItem("category") === "Student"
+                        ? "StudentDashboard"
+                        : "HostelOwnerDashboard"
+                    }`
+                  : text
+              }`}
             >
               <ListItem button key={index}>
                 <ListItemIcon>

@@ -30,8 +30,14 @@ export default function AddHostelForm({ toggle, settoggle }) {
 
   const context = useContext(HostelContext);
 
-  console.log(context);
-  const submitHostelDetailsToDb = () => {
+  const { addHostel } = context;
+  const submitHostelDetailsToDb = (
+    hostelName,
+    hostelAddress,
+    hostelCity,
+    hostelPhone,
+    hostelNoOfRooms
+  ) => {
     console.log("you clicked the button");
 
     if (
@@ -41,6 +47,18 @@ export default function AddHostelForm({ toggle, settoggle }) {
       newHostelDetails.hostelCity &&
       newHostelDetails.hostelNoOfRooms
     ) {
+      addHostel(
+        newHostelDetails.hostelName,
+        newHostelDetails.hostelAddress,
+        newHostelDetails.hostelCity,
+        newHostelDetails.hostelPhone,
+        newHostelDetails.hostelNoOfRooms
+      );
+
+      toast.success("Success! Hostel is added successfully.", {
+        autoClose: 20000,
+        position: toast.POSITION.TOP_CENTER,
+      });
     } else {
       toast.warning("Warning! No fields can be empty.", {
         autoClose: 20000,

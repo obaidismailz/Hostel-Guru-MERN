@@ -9,7 +9,14 @@ import Avatars from "./Avatars";
 
 export default function Profile({ name, email }) {
   return (
-    <Box sx={{ width: "19rem", margin: "auto", textAlign: "center" }}>
+    <Box
+      sx={{
+        width: "19rem",
+        margin: "auto",
+        textAlign: "center",
+        marginBottom: "3rem",
+      }}
+    >
       <Card variant="outlined">
         <React.Fragment>
           <CardContent>

@@ -1,5 +1,4 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import AddHostelForm from "./AddHostelForm";
@@ -11,14 +10,20 @@ export default function AddHostelIcon() {
   return (
     <>
       <AddHostelForm toggle={toggle} settoggle={settoggle} />
-      <Box sx={{ height: 320, transform: "translateZ(0px)", flexGrow: 1 }}>
-        <SpeedDial
-          ariaLabel="SpeedDial basic example"
-          sx={{ position: "fixed", bottom: "-2rem", right: "-3rem" }}
-          icon={<SpeedDialIcon />}
-          onClick={() => settoggle(!toggle)}
-        ></SpeedDial>
-      </Box>
+
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{
+          margin: 0,
+          top: "auto",
+          right: 20,
+          bottom: 20,
+          left: "auto",
+          position: "fixed",
+        }}
+        icon={<SpeedDialIcon />}
+        onClick={() => settoggle(!toggle)}
+      ></SpeedDial>
     </>
   );
 }

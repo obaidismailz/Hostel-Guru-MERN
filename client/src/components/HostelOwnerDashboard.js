@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Profile from "./Profile";
 import AuthContext from "../context/AuthContext";
 import AddHostelIcon from "./AddHostelIcon";
+import HostelOwnerHostels from "./HostelOwnerHostels";
 const HostelOwnerDashboard = () => {
   const context = useContext(AuthContext);
 
@@ -36,13 +37,18 @@ const HostelOwnerDashboard = () => {
       >
         <DashboardNavIcons stateChange={stateChange} />
       </Box>
-      <Container style={{ height: "80vh" }}>
-        <h1>{name}'s Dashboard</h1>
+      <Container
+        style={{ height: "auto", minHeight: "80vh", marginBottom: "3rem" }}
+      >
+        <h1 style={{ textAlign: "center" }}>{name}'s Dashboard</h1>
 
         {navChangerNum === 1 ? (
           <Profile name={name} email={email} />
         ) : (
-          <AddHostelIcon />
+          <>
+            <AddHostelIcon />
+            <HostelOwnerHostels />
+          </>
         )}
       </Container>
     </div>
