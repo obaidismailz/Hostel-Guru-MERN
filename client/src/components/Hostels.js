@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import HostelItem from "./HostelItem";
 import Container from "@mui/material/Container";
-
+import HostelSearchBar from "./HostelSearchBar";
 import HostelContext from "../context/HostelContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +40,7 @@ export default function Hostels() {
     <div>
       {/* <h3>Ex 4: Responsive Material UI Grid </h3> */}
       {/* // I am a container Grid with 1 (8px) spacing */}
+      <HostelSearchBar />
 
       <h1 style={{ textAlign: "center" }}>Hostels</h1>
       <Container maxWidth="lg">

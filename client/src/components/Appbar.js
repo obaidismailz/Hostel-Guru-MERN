@@ -12,14 +12,18 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 import SvgIcon from "@mui/material/SvgIcon";
 import LoginIcon from "@mui/icons-material/Login";
+
 import { Link } from "react-router-dom";
 // import HomeIcon from "@mui/icons-material/Home";
 const drawerWidth = 240;
@@ -85,6 +89,16 @@ export default function Appbar() {
     document.title = "Login";
   }, []);
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -99,8 +113,44 @@ export default function Appbar() {
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
-            Hostel Guru
+            HOSTEL GURU
           </Typography>
+
+          {localStorage.getItem("auth-token") ? (
+            <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            ""
+          )}
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -147,7 +197,7 @@ export default function Appbar() {
           ].map((text, index) => (
             <Link
               style={{ textDecoration: "none", color: "black" }}
-              to={`/${text}`}
+              to={`/${text === "Dashboard" ? "" : text}`}
             >
               <ListItem button key={index}>
                 <ListItemIcon>

@@ -37,7 +37,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "@mui/material/Button";
-
+import Loading from "./Loading";
 import AuthContext from "../context/AuthContext";
 
 // import HomeIcon from "@mui/icons-material/Home";
@@ -109,12 +109,7 @@ export default function Login() {
   const history = useHistory();
   const context = useContext(AuthContext);
 
-  const {
-    studentLogin,
-    hostelOwnerLogin,
-    fetchStudents,
-    isCredentialsCorrect,
-  } = context;
+  const { studentLogin, hostelOwnerLogin, fetchStudents } = context;
 
   const handleDrawerOpen = () => {
     setOpen(true);
