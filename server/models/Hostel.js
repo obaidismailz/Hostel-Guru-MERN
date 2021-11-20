@@ -22,7 +22,7 @@ const hostelSchema = new mongoose.Schema({
     required: true,
   },
   hostelNoOfRooms: {
-    type: Number,
+    type: String,
     required: true,
   },
   date: {

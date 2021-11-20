@@ -6,6 +6,7 @@ import DashboardNavIcons from "./DashboardNavIcons";
 import Box from "@mui/material/Box";
 import Profile from "./Profile";
 import AuthContext from "../context/AuthContext";
+import AddHostelIcon from "./AddHostelIcon";
 const HostelOwnerDashboard = () => {
   const context = useContext(AuthContext);
 
@@ -38,7 +39,11 @@ const HostelOwnerDashboard = () => {
       <Container style={{ height: "80vh" }}>
         <h1>{name}'s Dashboard</h1>
 
-        {navChangerNum === 1 ? <Profile name={name} email={email} /> : ""}
+        {navChangerNum === 1 ? (
+          <Profile name={name} email={email} />
+        ) : (
+          <AddHostelIcon />
+        )}
       </Container>
     </div>
   );

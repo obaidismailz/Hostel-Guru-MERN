@@ -24,7 +24,15 @@ router.post("/addhostel", fetchUser, async (req, res) => {
 
   const addedHostel = await newHostel.save();
 
-  res.send(addedHostel);
+  res.json(addedHostel);
+});
+//this route is used to fetch hostel for a hostel owner
+router.get("/fetchhostel", fetchUser, async (req, res) => {
+  const hostelOwnerid = req.user.id;
+
+  const hostels = await hostel.find({ hostelOwner: hostelOwnerid });
+  console.log(hostels);
+  res.json(hostels);
 });
 
 router.get("/fetchhostels", async (req, res) => {
