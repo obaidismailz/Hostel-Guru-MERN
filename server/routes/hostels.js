@@ -10,6 +10,7 @@ router.post("/addhostel", fetchUser, async (req, res) => {
     hostelAddress,
     hostelPhone,
     hostelCity,
+    studentAssigned,
     hostelNoOfRooms,
   } = req.body;
 
@@ -19,6 +20,7 @@ router.post("/addhostel", fetchUser, async (req, res) => {
     hostelPhone,
     hostelCity,
     hostelNoOfRooms,
+    studentAssigned,
     hostelOwner: req.user.id,
   });
 
@@ -89,6 +91,98 @@ router.put("/updatehostel/:id", fetchUser, async (req, res) => {
   );
 
   res.send(fetchHostel);
+});
+
+router.get("/getassignhostel", fetchUser, async (req, res) => {
+  const studentId = req.user.id;
+
+  let fetchHostel = await hostel.find();
+
+  if (!fetchHostel) {
+    res.send("Hostel not found");
+  }
+
+  console.log(req.user);
+
+  fetchHostel.forEach((item) => {
+    console.log(
+      item.studentAssigned.forEach((item) => {
+        if (item === studentId.toString()) {
+          console.log("matched");
+        }
+      })
+    );
+  });
+
+  res.json(fetchHostel);
+
+  // if (fetchHostel.hostelOwner.toString() !== req.user.id) {
+  //   res.send("you are not  allowed to update it");
+
+  // }
+
+  // const hostelObj = await hostel.findById(hostelId);
+  // const hostelAssigned = hostelObj.studentAssigned;
+  // console.log(hostelObj);
+  // console.log(hostelAssigned);
+  // let success = false;
+  // hostelAssigned.forEach((item) => {
+  //   if (studentId.toString() === item) {
+  //     success = true;
+  //   }
+  // });
+  // if (success) {
+  //   res.json({ hostelObj, success });
+  // }
+});
+
+router.put("/assignhostel/:id", fetchUser, async (req, res) => {
+  const hostelId = req.params.id;
+  const studentId = req.user.id;
+
+  let fetchHostel = await hostel.findById(hostelId);
+
+  console.log(fetchHostel);
+
+  if (!fetchHostel) {
+    res.send("Hostel not found");
+  }
+
+  console.log(req.user);
+  // if (fetchHostel.hostelOwner.toString() !== req.user.id) {
+  //   res.send("you are not  allowed to update it");
+
+  // }
+
+  const hostelObj = await hostel.findById(hostelId);
+  const hostelAssigned = hostelObj.studentAssigned;
+  console.log(hostelObj);
+  console.log(hostelAssigned);
+
+  let success = true;
+  hostelAssigned.forEach((item) => {
+    if (studentId.toString() === item) {
+      success = false;
+      res.json({ result: "you already assigned", success });
+    }
+  });
+
+  if (success) {
+    fetchHostel = await hostel.findByIdAndUpdate(
+      hostelId,
+      {
+        $set: {
+          studentAssigned: [...hostelAssigned, studentId],
+        },
+      },
+      { new: true }
+    );
+
+    if (fetchHostel) {
+      success = true;
+      res.json({ success });
+    }
+  }
 });
 
 router.delete("/deletehostel/:id", fetchUser, async (req, res) => {

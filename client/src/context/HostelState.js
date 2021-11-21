@@ -62,6 +62,22 @@ const HostelState = (props) => {
     setsingleHostelOwnerhostels(json);
   };
 
+  const assignhostel = async (hostelId) => {
+    const response = await fetch(
+      `${host}/api/hostel/assignhostel/${hostelId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+      }
+    );
+    const json = await response.json(); // parses JSON response into native JavaScript objects
+
+    console.log(json);
+  };
+
   return (
     <HostelContext.Provider
       value={{
@@ -70,6 +86,7 @@ const HostelState = (props) => {
         getHostelsForSingleHostelOwner,
         singleHostelOwnerhostels,
         addHostel,
+        assignhostel,
       }}
     >
       {props.children}

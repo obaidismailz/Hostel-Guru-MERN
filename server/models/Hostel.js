@@ -25,6 +25,12 @@ const hostelSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  studentAssigned: {
+    type: Array,
+    required: false,
+  },
+
   date: {
     type: Date,
     default: Date.now,

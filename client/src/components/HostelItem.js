@@ -12,6 +12,7 @@ export default function HostelItem(props) {
   const [toggle, settoggle] = useState(false);
 
   const hostelData = {
+    hostelId: props.data._id,
     hostelName: props.data.hostelName,
     hostelAddress: props.data.hostelAddress,
     hostelCity: props.data.hostelCity,
@@ -24,6 +25,7 @@ export default function HostelItem(props) {
         toggle={toggle}
         settoggle={settoggle}
         hostelData={hostelData}
+        assignHostel={props.data.assignHostel}
       />
       <Card sx={{ minWidth: 275 }}>
         <CardContent>

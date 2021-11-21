@@ -136,6 +136,22 @@ const AuthState = (props) => {
     setloggedinuser(user);
   };
 
+  const studentLoginDetails = async () => {
+    const resp = await fetch(`${host}/api/auth/getstudent`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("auth-token"),
+      },
+    });
+
+    const result = await resp.json();
+
+    user = result;
+
+    setloggedinuser(user);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -147,6 +163,7 @@ const AuthState = (props) => {
         hostelOwners,
         hostelOwnerLogin,
         hostelownerlogindetails,
+        studentLoginDetails,
         loggedinuser,
 
         user,

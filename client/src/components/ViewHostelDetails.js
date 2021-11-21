@@ -11,7 +11,8 @@ import Container from "@mui/material/Container";
 import HostelImagesSlider from "./HostelImagesSlider";
 import HostelRating from "./HostelRating";
 import Slide from "@mui/material/Slide";
-
+import { useContext } from "react";
+import HostelContext from "../context/HostelContext";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -21,7 +22,18 @@ export default function ViewHostelDetails({ toggle, settoggle, hostelData }) {
     settoggle(!toggle);
   };
 
+  const context = useContext(HostelContext);
+
+  const { assignhostel } = context;
+
+  const reserveSeat = (hostelId) => {
+    assignhostel(hostelId);
+
+    console.log("hostel is assigned");
+  };
+
   const {
+    hostelId,
     hostelName,
     hostelAddress,
     hostelCity,
@@ -50,7 +62,11 @@ export default function ViewHostelDetails({ toggle, settoggle, hostelData }) {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Hostel Details
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
+            <Button
+              autoFocus
+              color="inherit"
+              onClick={() => reserveSeat(hostelId)}
+            >
               Reserve Your Seat
             </Button>
           </Toolbar>
@@ -66,7 +82,7 @@ export default function ViewHostelDetails({ toggle, settoggle, hostelData }) {
           <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
             <strong>Hostel Address :</strong>
             <br />
-            Random Hostel
+            {hostelAddress}
           </Typography>
           <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
             <strong>Hostel City : </strong>

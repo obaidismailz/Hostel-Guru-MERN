@@ -16,7 +16,12 @@ export default function DashboardNavIcons({ stateChange }) {
       onChange={handleChange}
       aria-label="icon position tabs example"
     >
-      <Tab icon={<PhoneIcon />} label="Registered Hostels" />
+      {localStorage.getItem("category") === "Student" ? (
+        <Tab icon={<PhoneIcon />} label="Assign Hostel" />
+      ) : (
+        <Tab icon={<PhoneIcon />} label="Registered Hostels" />
+      )}
+
       <Tab icon={<PersonPinIcon />} iconPosition="bottom" label="Profile" />
     </Tabs>
   );
