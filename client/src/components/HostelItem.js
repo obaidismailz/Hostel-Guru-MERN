@@ -10,9 +10,21 @@ import Typography from "@mui/material/Typography";
 import HostelRating from "./HostelRating";
 export default function HostelItem(props) {
   const [toggle, settoggle] = useState(false);
+
+  const hostelData = {
+    hostelName: props.data.hostelName,
+    hostelAddress: props.data.hostelAddress,
+    hostelCity: props.data.hostelCity,
+    hostelPhone: props.data.hostelPhone,
+    hostelNoOfRooms: props.data.hostelNoOfRooms,
+  };
   return (
     <>
-      <ViewHostelDetails toggle={toggle} settoggle={settoggle} />
+      <ViewHostelDetails
+        toggle={toggle}
+        settoggle={settoggle}
+        hostelData={hostelData}
+      />
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
