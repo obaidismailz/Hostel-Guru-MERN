@@ -104,11 +104,11 @@ router.get("/getassignhostel", fetchUser, async (req, res) => {
 
   console.log(req.user);
 
-  fetchHostel.forEach((item) => {
+  fetchHostel.forEach((doc) => {
     console.log(
-      item.studentAssigned.forEach((item) => {
+      doc.studentAssigned.forEach((item) => {
         if (item === studentId.toString()) {
-          console.log("matched");
+          console.log(doc, "hello");
         }
       })
     );

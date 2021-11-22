@@ -59,6 +59,7 @@ export default function AddHostelForm({ toggle, settoggle }) {
         autoClose: 20000,
         position: toast.POSITION.TOP_CENTER,
       });
+      handleClose();
     } else {
       toast.warning("Warning! No fields can be empty.", {
         autoClose: 20000,

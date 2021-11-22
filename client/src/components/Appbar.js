@@ -207,7 +207,7 @@ export default function Appbar() {
                   : text
               }`}
             >
-              <ListItem button key={index}>
+              <ListItem button key={index} onClick={handleDrawerClose}>
                 <ListItemIcon>
                   {index === 0 ? (
                     <LoginIcon color="success" />

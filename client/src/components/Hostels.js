@@ -28,10 +28,12 @@ export default function Hostels() {
 
   const context = useContext(HostelContext);
 
-  const { hostels, getHostels } = context;
+  const { hostels, getHostels, assignHostel } = context;
 
   useEffect(() => {
     getHostels();
+
+    document.title = "Home";
     // console.log(hostels);
     // eslint-disable-next-line
   }, []);
@@ -51,6 +53,7 @@ export default function Hostels() {
                 classes={classes}
                 key={hostelItem._id}
                 hostel={hostelItem}
+                assignHostel={assignHostel}
               />
             );
           })}
