@@ -250,6 +250,7 @@ export default function Login() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          minHeight: "50vh",
         }}
       >
         <Box

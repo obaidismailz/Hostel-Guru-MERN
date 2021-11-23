@@ -9,6 +9,7 @@ const HostelState = (props) => {
   const hostelInitialState = [];
   const [hostels, sethostels] = useState(hostelInitialState);
   const [singleHostelOwnerhostels, setsingleHostelOwnerhostels] = useState([]);
+  const [getAssignHostell, setgetAssignHostell] = useState({});
 
   const addHostel = async (
     hostelName,
@@ -78,6 +79,20 @@ const HostelState = (props) => {
     console.log(json);
   };
 
+  const getAssignHostel = async () => {
+    const response = await fetch(`${host}/api/hostel/getassignhostel`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("auth-token"),
+      },
+    });
+    const json = await response.json(); // parses JSON response into native JavaScript objects
+
+    setgetAssignHostell(json);
+    console.log(json);
+  };
+
   return (
     <HostelContext.Provider
       value={{
@@ -87,6 +102,8 @@ const HostelState = (props) => {
         singleHostelOwnerhostels,
         addHostel,
         assignhostel,
+        getAssignHostel,
+        getAssignHostell, // get the return data(assign hostel store the data)
       }}
     >
       {props.children}

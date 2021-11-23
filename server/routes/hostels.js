@@ -105,16 +105,14 @@ router.get("/getassignhostel", fetchUser, async (req, res) => {
   console.log(req.user);
 
   fetchHostel.forEach((doc) => {
-    console.log(
-      doc.studentAssigned.forEach((item) => {
-        if (item === studentId.toString()) {
-          console.log(doc, "hello");
-        }
-      })
-    );
+    doc.studentAssigned.forEach((item) => {
+      if (item === studentId.toString()) {
+        res.json(doc);
+      }
+    });
   });
 
-  res.json(fetchHostel);
+  // res.json(fetchHostel);
 
   // if (fetchHostel.hostelOwner.toString() !== req.user.id) {
   //   res.send("you are not  allowed to update it");

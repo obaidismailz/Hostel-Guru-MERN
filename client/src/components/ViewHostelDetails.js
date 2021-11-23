@@ -12,7 +12,13 @@ import HostelImagesSlider from "./HostelImagesSlider";
 import HostelRating from "./HostelRating";
 import Slide from "@mui/material/Slide";
 import { useContext } from "react";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import HostelContext from "../context/HostelContext";
+
+toast.configure();
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -28,6 +34,8 @@ export default function ViewHostelDetails({ toggle, settoggle, hostelData }) {
 
   const reserveSeat = (hostelId) => {
     assignhostel(hostelId);
+
+    handleClose();
 
     console.log("hostel is assigned");
   };

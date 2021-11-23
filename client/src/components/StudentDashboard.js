@@ -6,11 +6,15 @@ import DashboardNavIcons from "./DashboardNavIcons";
 import Box from "@mui/material/Box";
 import Profile from "./Profile";
 import AuthContext from "../context/AuthContext";
-
+import HostelContext from "../context/HostelContext";
+import StudentAssignHostelCard from "./StudentAssignHostelCard";
 const StudentDashboard = () => {
-  const context = useContext(AuthContext);
+  const authContext = useContext(AuthContext);
+  const hostelContext = useContext(HostelContext);
 
-  const { studentLoginDetails, loggedinuser } = context;
+  const { studentLoginDetails, loggedinuser } = authContext;
+
+  const { getAssignHostel, getAssignHostell } = hostelContext;
 
   const { name, email } = loggedinuser;
   useEffect(() => {
@@ -42,7 +46,14 @@ const StudentDashboard = () => {
       >
         <h1 style={{ textAlign: "center" }}>{name}'s Dashboard</h1>
 
-        {navChangerNum === 0 ? "" : <Profile name={name} email={email} />}
+        {navChangerNum === 0 ? (
+          <StudentAssignHostelCard
+            getAssignHostell={getAssignHostell}
+            getAssignHostel={getAssignHostel}
+          />
+        ) : (
+          <Profile name={name} email={email} />
+        )}
       </Container>
     </div>
   );
