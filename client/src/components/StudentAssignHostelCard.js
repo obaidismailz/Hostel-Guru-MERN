@@ -25,7 +25,10 @@ export default function StudentAssignHostelCard({
     // eslint-disable-next-line
   }, []);
 
-  return (
+  console.log(getAssignHostell);
+  return getAssignHostell.err === "you have not assigned a hostel yet" ? (
+    " You have not assigned hostel yet"
+  ) : (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>

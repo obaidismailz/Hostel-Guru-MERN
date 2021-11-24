@@ -30,14 +30,32 @@ export default function ViewHostelDetails({ toggle, settoggle, hostelData }) {
 
   const context = useContext(HostelContext);
 
-  const { assignhostel } = context;
+  const { assignhostel, hostelIsAlreadyAssigned } = context;
 
   const reserveSeat = (hostelId) => {
-    assignhostel(hostelId);
+    if (localStorage.getItem("auth-token")) {
+      assignhostel(hostelId);
 
-    handleClose();
-
-    console.log("hostel is assigned");
+      handleClose();
+      console.log(hostelIsAlreadyAssigned, "hello");
+      if (!hostelIsAlreadyAssigned) {
+        toast.success("Success! Hostel is assigned.", {
+          autoClose: 20000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else {
+        toast.error("Error! You Already Assigned a hostel.", {
+          autoClose: 20000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+      console.log("hostel is assigned");
+    } else {
+      toast.error("Error! You are not logged in. Please Login.", {
+        autoClose: 20000,
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   const {

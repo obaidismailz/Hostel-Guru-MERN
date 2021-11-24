@@ -112,6 +112,8 @@ router.get("/getassignhostel", fetchUser, async (req, res) => {
     });
   });
 
+  res.json({ err: "you have not assigned a hostel yet" });
+
   // res.json(fetchHostel);
 
   // if (fetchHostel.hostelOwner.toString() !== req.user.id) {
@@ -152,19 +154,25 @@ router.put("/assignhostel/:id", fetchUser, async (req, res) => {
 
   // }
 
-  const hostelObj = await hostel.findById(hostelId);
-  const hostelAssigned = hostelObj.studentAssigned;
-  console.log(hostelObj);
-  console.log(hostelAssigned);
+  const hostelObj = await hostel.find();
 
   let success = true;
-  hostelAssigned.forEach((item) => {
-    if (studentId.toString() === item) {
-      success = false;
-      res.json({ result: "you already assigned", success });
-    }
+  hostelObj.forEach((hostelDoc) => {
+    const hostelAssigned = hostelDoc.studentAssigned;
+    hostelAssigned.forEach((item) => {
+      if (studentId.toString() === item) {
+        success = false;
+        res.json({ result: "you already assigned", success });
+      }
+    });
   });
 
+  // console.log(hostelObj);
+  // console.log(hostelAssigned);
+
+  let hostelAssigned = fetchHostel.studentAssigned;
+
+  console.log(success, "this iss");
   if (success) {
     fetchHostel = await hostel.findByIdAndUpdate(
       hostelId,
@@ -181,6 +189,8 @@ router.put("/assignhostel/:id", fetchUser, async (req, res) => {
       res.json({ success });
     }
   }
+
+  res.json({ err: "some thing went wrong" });
 });
 
 router.delete("/deletehostel/:id", fetchUser, async (req, res) => {

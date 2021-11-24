@@ -6,10 +6,14 @@ import AppBar from "@mui/material/AppBar";
 export default function Footer() {
   return (
     <AppBar position="relative" color="primary">
-      <Container maxWidth="md">
+      <Container
+        style={{
+          textAlign: "center",
+        }}
+      >
         <Toolbar>
           <Typography variant="body1" color="inherit">
-            © 2021-22 | Hostel Guru | All Rights Reserved
+            <h4>© 2021-22 | Hostel Guru | All Rights Reserved</h4>
           </Typography>
         </Toolbar>
       </Container>

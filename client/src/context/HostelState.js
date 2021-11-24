@@ -10,7 +10,7 @@ const HostelState = (props) => {
   const [hostels, sethostels] = useState(hostelInitialState);
   const [singleHostelOwnerhostels, setsingleHostelOwnerhostels] = useState([]);
   const [getAssignHostell, setgetAssignHostell] = useState({});
-
+  const [hostelIsAlreadyAssigned, sethostelIsAlreadyAssigned] = useState(false);
   const addHostel = async (
     hostelName,
     hostelAddress,
@@ -75,8 +75,12 @@ const HostelState = (props) => {
       }
     );
     const json = await response.json(); // parses JSON response into native JavaScript objects
-
     console.log(json);
+    console.log(json.success, "hostel state");
+
+    if (!json.success) {
+      sethostelIsAlreadyAssigned(true);
+    }
   };
 
   const getAssignHostel = async () => {
@@ -100,6 +104,7 @@ const HostelState = (props) => {
         getHostels,
         getHostelsForSingleHostelOwner,
         singleHostelOwnerhostels,
+        hostelIsAlreadyAssigned,
         addHostel,
         assignhostel,
         getAssignHostel,
