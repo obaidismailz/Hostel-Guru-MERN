@@ -4,9 +4,32 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-export default function HostelOwnerHostelsCards({ item }) {
+import DeleteDialog from "./DeleteDialog";
+import { useState } from "react";
+
+export default function HostelOwnerHostelsCards({ item, deleteHostel }) {
+  const [openDialog, setopenDialog] = useState(false);
+  const [dialogRes, setdialogRes] = useState(false);
+
+  const removeHostel = () => {
+    setopenDialog(true);
+
+    console.log(dialogRes);
+
+    if (dialogRes) {
+      deleteHostel(item._id);
+    }
+  };
+
   return (
     <>
+      <DeleteDialog
+        setdialogRes={setdialogRes}
+        openDialog={openDialog}
+        setopenDialog={setopenDialog}
+        item={item}
+        deleteHostel={deleteHostel}
+      />
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography
@@ -29,7 +52,10 @@ export default function HostelOwnerHostelsCards({ item }) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Button size="small">View Details</Button>
+          <Button onClick={removeHostel} size="small" variant="outlined">
+            Remove
+          </Button>
         </CardActions>
       </Card>
     </>

@@ -97,6 +97,24 @@ const HostelState = (props) => {
     console.log(json);
   };
 
+  const deleteHostel = async (hostelId) => {
+    const response = await fetch(
+      `${host}/api/hostel/deletehostel/${hostelId}`,
+      {
+        method: "DELETE",
+
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+      }
+    );
+
+    const result = await response.json();
+
+    console.log("this hostel is deleted", result);
+  };
+
   return (
     <HostelContext.Provider
       value={{
@@ -105,6 +123,7 @@ const HostelState = (props) => {
         getHostelsForSingleHostelOwner,
         singleHostelOwnerhostels,
         hostelIsAlreadyAssigned,
+        deleteHostel,
         addHostel,
         assignhostel,
         getAssignHostel,

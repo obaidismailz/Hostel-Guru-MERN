@@ -17,7 +17,11 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function HostelOwnerHostels() {
   const context = useContext(HostelContext);
 
-  const { getHostelsForSingleHostelOwner, singleHostelOwnerhostels } = context;
+  const {
+    getHostelsForSingleHostelOwner,
+    singleHostelOwnerhostels,
+    deleteHostel,
+  } = context;
 
   useEffect(() => {
     getHostelsForSingleHostelOwner();
@@ -28,17 +32,22 @@ export default function HostelOwnerHostels() {
   return (
     <Box sx={{ width: "100%" }}>
       <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {singleHostelOwnerhostels.length === 0
-          ? "You have not  registered hostel yet"
-          : singleHostelOwnerhostels.map((item, index) => {
-              return (
-                <Grid item xs={6} key={index}>
-                  <Item>
-                    <HostelOwnerHostelsCards item={item} />
-                  </Item>
-                </Grid>
-              );
-            })}
+        {singleHostelOwnerhostels.length === 0 ? (
+          <h3>You have not registered hostel yet.</h3>
+        ) : (
+          singleHostelOwnerhostels.map((item, index) => {
+            return (
+              <Grid item xs={6} key={index}>
+                <Item>
+                  <HostelOwnerHostelsCards
+                    item={item}
+                    deleteHostel={deleteHostel}
+                  />
+                </Item>
+              </Grid>
+            );
+          })
+        )}
       </Grid>
     </Box>
   );

@@ -196,15 +196,17 @@ router.put("/assignhostel/:id", fetchUser, async (req, res) => {
 router.delete("/deletehostel/:id", fetchUser, async (req, res) => {
   const hostelId = req.params.id;
 
+  console.log(hostelId);
   let delHostel = await hostel.findById(hostelId);
 
+  console.log(delHostel);
   if (!delHostel) {
     res.send("hostel not found");
   }
 
-  if (delHostel.hostelOwner.toString() !== req.user.id) {
-    res.send("You are not allowed to  delete this hostel");
-  }
+  // if (delHostel.hostelOwner.toString() !== req.user.id) {
+  //   res.send("You are not allowed to  delete this hostel");
+  // }
 
   let del = await hostel.findByIdAndDelete(hostelId);
 
