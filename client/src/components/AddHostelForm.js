@@ -11,7 +11,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Container from "@mui/material/Container";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useHistory } from "react-router-dom";
 import { useState, useContext } from "react";
 import Slide from "@mui/material/Slide";
 import Box from "@mui/material/Box";
@@ -23,14 +22,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AddHostelForm({ toggle, settoggle }) {
+export default function AddHostelForm({ toggle, settoggle, setrerender }) {
   const handleClose = () => {
     settoggle(!toggle);
   };
 
   const context = useContext(HostelContext);
 
-  const history = useHistory();
   const { addHostel } = context;
   const submitHostelDetailsToDb = (
     hostelName,
@@ -58,11 +56,13 @@ export default function AddHostelForm({ toggle, settoggle }) {
 
       handleClose();
 
-      history.push("/HostelOwnerDashboard");
+      // history.push("/HostelOwnerDashboard");
       toast.success("Success! Hostel is added successfully.", {
         autoClose: 20000,
         position: toast.POSITION.TOP_CENTER,
       });
+
+      setrerender(true);
     } else {
       toast.warning("Warning! No fields can be empty.", {
         autoClose: 20000,

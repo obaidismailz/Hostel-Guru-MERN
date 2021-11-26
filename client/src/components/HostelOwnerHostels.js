@@ -14,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function HostelOwnerHostels() {
+export default function HostelOwnerHostels({ rerender, setrerender }) {
   const context = useContext(HostelContext);
 
   const {
@@ -27,7 +27,7 @@ export default function HostelOwnerHostels() {
     getHostelsForSingleHostelOwner();
 
     // eslint-disable-next-line
-  }, []);
+  }, [rerender]);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -42,6 +42,7 @@ export default function HostelOwnerHostels() {
                   <HostelOwnerHostelsCards
                     item={item}
                     deleteHostel={deleteHostel}
+                    setrerender={setrerender}
                   />
                 </Item>
               </Grid>

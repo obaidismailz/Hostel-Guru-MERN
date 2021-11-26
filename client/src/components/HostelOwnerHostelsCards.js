@@ -7,7 +7,11 @@ import Typography from "@mui/material/Typography";
 import DeleteDialog from "./DeleteDialog";
 import { useState } from "react";
 
-export default function HostelOwnerHostelsCards({ item, deleteHostel }) {
+export default function HostelOwnerHostelsCards({
+  item,
+  deleteHostel,
+  setrerender,
+}) {
   const [openDialog, setopenDialog] = useState(false);
   const [dialogRes, setdialogRes] = useState(false);
 
@@ -18,6 +22,7 @@ export default function HostelOwnerHostelsCards({ item, deleteHostel }) {
 
     if (dialogRes) {
       deleteHostel(item._id);
+      setrerender(false);
     }
   };
 

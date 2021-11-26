@@ -15,8 +15,14 @@ const HostelOwnerDashboard = () => {
 
   const [navChangerNum, setnavChangerNum] = useState(0);
   const { name, email } = loggedinuser;
+
+  // this state is used  to re render hostel owners hostels after adding hostels
+  const [rerender, setrerender] = useState(false);
+
   useEffect(() => {
     hostelownerlogindetails();
+
+    document.title = "Dashboard";
     // eslint-disable-next-line
   }, []);
 
@@ -46,8 +52,8 @@ const HostelOwnerDashboard = () => {
           <Profile name={name} email={email} />
         ) : (
           <>
-            <AddHostelIcon />
-            <HostelOwnerHostels />
+            <AddHostelIcon setrerender={setrerender} />
+            <HostelOwnerHostels rerender={rerender} setrerender={setrerender} />
           </>
         )}
       </Container>

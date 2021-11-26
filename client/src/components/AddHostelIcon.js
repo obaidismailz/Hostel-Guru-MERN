@@ -4,12 +4,16 @@ import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import AddHostelForm from "./AddHostelForm";
 import { useState } from "react";
 
-export default function AddHostelIcon() {
+export default function AddHostelIcon({ setrerender }) {
   const [toggle, settoggle] = useState(false);
 
   return (
     <>
-      <AddHostelForm toggle={toggle} settoggle={settoggle} />
+      <AddHostelForm
+        toggle={toggle}
+        setrerender={setrerender}
+        settoggle={settoggle}
+      />
 
       <SpeedDial
         ariaLabel="SpeedDial basic example"
