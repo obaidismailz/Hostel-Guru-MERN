@@ -21,6 +21,7 @@ export default function HostelOwnerHostels({ rerender, setrerender }) {
     getHostelsForSingleHostelOwner,
     singleHostelOwnerhostels,
     deleteHostel,
+    updateHostel,
   } = context;
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export default function HostelOwnerHostels({ rerender, setrerender }) {
                     item={item}
                     deleteHostel={deleteHostel}
                     setrerender={setrerender}
+                    updateHostel={updateHostel}
                   />
                 </Item>
               </Grid>

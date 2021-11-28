@@ -114,6 +114,39 @@ const HostelState = (props) => {
 
     console.log("this hostel is deleted", result);
   };
+  const updateHostel = async (
+    hostelId,
+    hostelName,
+    hostelAddress,
+    hostelCity,
+    hostelPhone,
+    hostelNoOfRooms
+  ) => {
+    const updatedInfo = {
+      hostelName,
+      hostelAddress,
+      hostelCity,
+      hostelPhone,
+      hostelNoOfRooms,
+    };
+
+    const response = await fetch(
+      `${host}/api/hostel/updatehostel/${hostelId}`,
+      {
+        method: "PUT",
+
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+        body: JSON.stringify(updatedInfo),
+      }
+    );
+
+    const result = await response.json();
+
+    console.log("this hostel is upadated", result);
+  };
 
   return (
     <HostelContext.Provider
@@ -126,6 +159,7 @@ const HostelState = (props) => {
         deleteHostel,
         addHostel,
         assignhostel,
+        updateHostel,
         getAssignHostel,
         getAssignHostell, // get the return data(assign hostel store the data)
       }}

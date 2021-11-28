@@ -34,7 +34,7 @@ export default function AlertDialog({
     <div>
       <Dialog
         open={openDialog}
-        onClose={handleClose}
+        onClose={cancel}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >

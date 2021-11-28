@@ -6,14 +6,18 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteDialog from "./DeleteDialog";
 import { useState } from "react";
+import EditDialogBox from "./EditDialogBox";
 
 export default function HostelOwnerHostelsCards({
   item,
   deleteHostel,
   setrerender,
+  updateHostel,
 }) {
-  const [openDialog, setopenDialog] = useState(false);
+  const [openDialog, setopenDialog] = useState(false); // it handles remove dialog box
   const [dialogRes, setdialogRes] = useState(false);
+
+  const [handleEditBox, sethandleEditBox] = useState(false);
 
   const removeHostel = () => {
     setopenDialog(true);
@@ -25,6 +29,9 @@ export default function HostelOwnerHostelsCards({
       setrerender(false);
     }
   };
+  const editHostel = () => {
+    sethandleEditBox(true);
+  };
 
   return (
     <>
@@ -34,6 +41,13 @@ export default function HostelOwnerHostelsCards({
         setopenDialog={setopenDialog}
         item={item}
         deleteHostel={deleteHostel}
+      />
+
+      <EditDialogBox
+        handleEditBox={handleEditBox}
+        sethandleEditBox={sethandleEditBox}
+        item={item}
+        updateHostel={updateHostel}
       />
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
@@ -60,6 +74,9 @@ export default function HostelOwnerHostelsCards({
           <Button size="small">View Details</Button>
           <Button onClick={removeHostel} size="small" variant="outlined">
             Remove
+          </Button>
+          <Button size="small" onClick={editHostel} variant="contained">
+            Edit
           </Button>
         </CardActions>
       </Card>
