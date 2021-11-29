@@ -58,12 +58,13 @@ export default function EditDialogBox({
   const handleUpdateHostel = (id) => {
     updateHostel(
       id,
+      updateHostelDetails.hostelName,
       updateHostelDetails.hostelAddress,
       updateHostelDetails.hostelCity,
-      updateHostelDetails.hostelName,
-      hostelNoOfRooms,
-      hostelPhone
+      updateHostelDetails.hostelPhone,
+      updateHostelDetails.hostelNoOfRooms
     );
+    handleClose();
   };
 
   return (
@@ -126,7 +127,7 @@ export default function EditDialogBox({
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleUpdateHostel}>Update</Button>
+          <Button onClick={() => handleUpdateHostel(item._id)}>Update</Button>
         </DialogActions>
       </Dialog>
     </div>

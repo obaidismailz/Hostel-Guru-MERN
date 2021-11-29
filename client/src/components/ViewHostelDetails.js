@@ -11,7 +11,8 @@ import Container from "@mui/material/Container";
 import HostelImagesSlider from "./HostelImagesSlider";
 import HostelRating from "./HostelRating";
 import Slide from "@mui/material/Slide";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import StudentRegistrationForHostel from "./StudentRegistrationForHostel";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,28 +29,45 @@ export default function ViewHostelDetails({ toggle, settoggle, hostelData }) {
     settoggle(!toggle);
   };
 
+  const [isRegFormOpen, setisRegFormOpen] = useState(false);
+
   const context = useContext(HostelContext);
 
   const { assignhostel, hostelIsAlreadyAssigned } = context;
 
   const reserveSeat = (hostelId) => {
     if (localStorage.getItem("auth-token")) {
-      assignhostel(hostelId);
+      if (localStorage.getItem("category") === "Student") {
+        // assignhostel(hostelId);
 
-      handleClose();
-      console.log(hostelIsAlreadyAssigned, "hello");
-      if (!hostelIsAlreadyAssigned) {
-        toast.success("Success! Hostel is assigned.", {
-          autoClose: 20000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        console.log("open");
+        setisRegFormOpen(true);
+
+        console.log(isRegFormOpen);
+
+        // console.log(hostelIsAlreadyAssigned, "hello");
+        // if (!hostelIsAlreadyAssigned) {
+        //   toast.success("Success! Hostel is assigned.", {
+        //     autoClose: 20000,
+        //     position: toast.POSITION.TOP_CENTER,
+        //   });
+
+        // } else {
+        //     toast.error("Error! You Already Assigned a hostel.", {
+        //       autoClose: 20000,
+        //       position: toast.POSITION.TOP_CENTER,
+        //     });
+        //   }
+        // console.log("hostel is assigned");
       } else {
-        toast.error("Error! You Already Assigned a hostel.", {
-          autoClose: 20000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(
+          "Error! You are not Allowed to Reserve a Seat. Please Login to Student Account.",
+          {
+            autoClose: 20000,
+            position: toast.POSITION.TOP_CENTER,
+          }
+        );
       }
-      console.log("hostel is assigned");
     } else {
       toast.error("Error! You are not logged in. Please Login.", {
         autoClose: 20000,
@@ -75,6 +93,10 @@ export default function ViewHostelDetails({ toggle, settoggle, hostelData }) {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
+        <StudentRegistrationForHostel
+          setisRegFormOpen={setisRegFormOpen}
+          isRegFormOpen={isRegFormOpen}
+        />
         <AppBar sx={{ position: "fixed" }}>
           <Toolbar>
             <IconButton
