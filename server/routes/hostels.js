@@ -2,6 +2,7 @@ const express = require("express");
 const hostel = require("../models/Hostel");
 const router = express.Router();
 const fetchUser = require("../middleware/fetchuser");
+const studentRegInfo = require("../models/RegStudentInfo");
 const { hashSync } = require("bcryptjs");
 
 router.post("/addhostel", fetchUser, async (req, res) => {
@@ -197,6 +198,7 @@ router.delete("/deletehostel/:id", fetchUser, async (req, res) => {
   const hostelId = req.params.id;
 
   console.log(hostelId);
+
   let delHostel = await hostel.findById(hostelId);
 
   console.log(delHostel);
@@ -211,6 +213,38 @@ router.delete("/deletehostel/:id", fetchUser, async (req, res) => {
   let del = await hostel.findByIdAndDelete(hostelId);
 
   res.send(del);
+});
+
+router.post("/reg", fetchUser, async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    hostelOwner,
+    hostelId,
+    fatherName,
+    cnic,
+    dob,
+    workPlace,
+    phone,
+  } = req.body;
+
+  console.log("ello");
+  const newRegStudent = new studentRegInfo({
+    firstName,
+    lastName,
+    fatherName,
+    hostelOwner,
+    hostelId,
+    cnic,
+    dob,
+    workPlace,
+    phone,
+    studentId: req.user.id,
+  });
+
+  const registeredStudentInfo = await newRegStudent.save();
+
+  res.json(registeredStudentInfo);
 });
 
 module.exports = router;

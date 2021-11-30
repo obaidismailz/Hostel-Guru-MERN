@@ -4,12 +4,13 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
+import Aggrement from "./Aggrement";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
 const steps = [
   "Personal Information",
-  "Hostel Agrement",
+  "Hostel Aggrement",
   "Pay Hostel Dues",
   "Confirmation",
 ];
@@ -21,6 +22,8 @@ export default function ReserveSeatStepper() {
   const isStepOptional = (step) => {
     return step === 1;
   };
+
+  const [isAgree, setisAgree] = React.useState("Agree");
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -49,11 +52,6 @@ export default function ReserveSeatStepper() {
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
   };
 
   const handleReset = () => {
@@ -151,7 +149,13 @@ export default function ReserveSeatStepper() {
                 />
               </>
             ) : activeStep === 1 ? (
-              "this is the aggrement"
+              <>
+                "this is the aggrement you can do any thing this is a random
+                text where you can write your reviews on any topic which we
+                relate. This is I know you know you can do it."
+                <br />
+                <Aggrement setisAgree={setisAgree} />
+              </>
             ) : (
               ""
             )}
@@ -166,14 +170,13 @@ export default function ReserveSeatStepper() {
               Back
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )}
 
             <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              {activeStep === steps.length - 1
+                ? "Finish"
+                : isAgree === "Agree"
+                ? "Next"
+                : ""}
             </Button>
           </Box>
         </React.Fragment>
